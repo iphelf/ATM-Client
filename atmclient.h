@@ -2,11 +2,19 @@
 #define ATMCLIENT_H
 
 #include <QObject>
+class AtmClientModel;
+class AtmClientView;
+class AtmClientTcp;
 
-class AtmClient
+class AtmClient : public QObject
 {
+    Q_OBJECT
 public:
     AtmClient();
+private:
+    AtmClientModel  *model;
+    AtmClientView   *view;
+    AtmClientTcp    *tcp;
 };
 
 #endif // ATMCLIENT_H

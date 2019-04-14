@@ -4,3 +4,8 @@ AtmClientModel::AtmClientModel()
 {
 
 }
+
+void AtmClientModel::pullMsg(char *msg)
+{
+    ;
+}

@@ -3,10 +3,15 @@
 
 #include <QObject>
 
-class AtmClientModel
+class AtmClientModel : public QObject
 {
+    Q_OBJECT
 public:
     AtmClientModel();
+public slots:
+    void pullMsg(char *msg);
+signals:
+    void pushMsg(char *msg);
 };
 
 #endif // ATMCLIENTMODEL_H
