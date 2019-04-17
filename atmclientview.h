@@ -18,6 +18,7 @@ public:
     ~AtmClientView();
 
 signals:
+    void test();
     void connect(const QHostAddress& host,quint16 port);
     /*!
      * \brief   用户输入好host和port并点击了某个表示“开始连接”的按钮后，
@@ -63,6 +64,9 @@ public slots:
     void recvErr(int code);
     void recvAmount(double amt);
     void recvBye();
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::AtmClientView *ui;
 };

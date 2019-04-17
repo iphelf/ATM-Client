@@ -65,3 +65,9 @@ void AtmClientView::recvBye()
      */
     qDebug()<<"<<  View  :: recvBye\t>>";
 }
+
+void AtmClientView::on_pushButton_clicked()
+{
+    qDebug()<<"<<  View  :: test\t\t>>";
+    emit test();
+}

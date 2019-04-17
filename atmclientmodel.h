@@ -32,6 +32,7 @@ public:
     ~AtmClientModel();
     void run();
 public slots:
+    void test();
     void toConnect(const QHostAddress& host,quint16 port);
     void pullMsg(const char *msg);
     void toSendHelo(const char *userid);

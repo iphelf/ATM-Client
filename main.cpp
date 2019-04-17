@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QDebug>
 #include "main.h"
+#define QT_NO_DEBUG_OUTPUT
 /*
  * 45.77.152.88 : 444
  * 用户名          密码
