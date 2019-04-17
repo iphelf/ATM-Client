@@ -3,14 +3,12 @@
 
 #include <QObject>
 #include <QHostAddress>
-#include <QTcpSocket>
 
 class AtmClientTcp : public QObject
 {
     Q_OBJECT
 public:
     AtmClientTcp();
-    ~AtmClientTcp();
     bool initConnection(const QHostAddress& host,quint16 port);
 signals:
     void recvMsg(char *msg);
@@ -21,10 +19,6 @@ signals:
      */
 public slots:
     void sendMsg(char *msg);
-    void disconnected();
-private:
-    QTcpSocket *socket;
-
 };
 
 #endif // ATMCLIENTTCP_H
