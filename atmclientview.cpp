@@ -5,11 +5,13 @@ AtmClientView::AtmClientView(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AtmClientView)
 {
+    qDebug()<<"<<  View  :: AtmClientView\t>>";
     ui->setupUi(this);
 }
 
 AtmClientView::~AtmClientView()
 {
+    qDebug()<<"<<  View  :: ~AtmClientView\t>>";
     delete ui;
 }
 
@@ -20,7 +22,7 @@ void AtmClientView::recvPasswd()
      * \param   void
      * \return  void
      */
-    ;
+    qDebug()<<"<<  View  :: recvPasswd\t>>";
 }
 
 void AtmClientView::recvOk()
@@ -31,7 +33,7 @@ void AtmClientView::recvOk()
      * \param   void
      * \return  void
      */
-    ;
+    qDebug()<<"<<  View  :: recvOk\t>>";
 }
 
 void AtmClientView::recvErr(int code)
@@ -41,17 +43,17 @@ void AtmClientView::recvErr(int code)
      * \param   code是错误代码，不过其实并不用管啦，协议也没明确规定的说
      * \return  void
      */
-    ;
+    qDebug()<<"<<  View  :: recvErr\t>>";
 }
 
-void AtmClientView::recvAmount(int amt)
+void AtmClientView::recvAmount(double amt)
 {
     /*!
      * \brief   你的查询余额请求得到正确回馈了！
      * \param   amt是你的余额
      * \return  void
      */
-    ;
+    qDebug()<<"<<  View  :: recvAmount\t>>";
 }
 
 void AtmClientView::recvBye()
@@ -61,5 +63,5 @@ void AtmClientView::recvBye()
      * \param   void
      * \return  void
      */
-    ;
+    qDebug()<<"<<  View  :: recvBye\t>>";
 }

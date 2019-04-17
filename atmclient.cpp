@@ -5,7 +5,13 @@
 
 AtmClient::AtmClient()
 {
-    model=new AtmClientModel;
+    qDebug()<<"<<  Client:: AtmClient\t>>";
     view=new AtmClientView;
     tcp=new AtmClientTcp;
+    model=new AtmClientModel(view,tcp);
+}
+
+void AtmClient::run()
+{
+    model->run();
 }

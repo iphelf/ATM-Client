@@ -113,7 +113,7 @@
                          <object>{75af503a-8d1e-468a-9ed8-c06df814d641}</object>
                          <name>AtmClientTcp</name>
                          <pos>x:310;y:580</pos>
-                         <rect>x:-185;y:-50;w:370;h:100</rect>
+                         <rect>x:-165;y:-55;w:330;h:110</rect>
                          <visual-role>0</visual-role>
                         </DObject>
                        </base-DObject>
@@ -272,7 +272,7 @@
                  <qlist>
                   <item>
                    <MClassMember>
-                    <uid>{5539b2da-1bf3-46be-a8ec-cb517ec4851d}</uid>
+                    <uid>{99f97e47-2226-4454-92cb-a3c30cde4f45}</uid>
                     <visibility>4</visibility>
                     <type>2</type>
                     <declaration>void initConnection(const QHostAddress&amp; host,quint16 port)</declaration>
@@ -280,7 +280,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{cb50b6c8-bc44-48b2-9b0b-fd58f2586901}</uid>
+                    <uid>{4d7a2be6-0042-4625-9c98-eeb01b9516a9}</uid>
                     <visibility>4</visibility>
                     <type>2</type>
                     <declaration>void sendHelo(int userid)</declaration>
@@ -288,7 +288,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{280df383-a404-48c4-9d98-a716e57b4111}</uid>
+                    <uid>{25deaac1-78ae-4636-9b2d-2f9469b17785}</uid>
                     <visibility>4</visibility>
                     <type>2</type>
                     <declaration>void sendPasswd(int passwd)</declaration>
@@ -296,7 +296,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{7c68ece2-bed1-4ad4-92db-cd485fa31ed8}</uid>
+                    <uid>{a07c4015-0831-4c84-acde-0ef1268d7166}</uid>
                     <visibility>4</visibility>
                     <type>2</type>
                     <declaration>void sendBalance()</declaration>
@@ -304,7 +304,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{55bbd29b-d0d7-48ff-840e-7f0e1c440d60}</uid>
+                    <uid>{74153003-b512-41dd-b844-3246308de6f4}</uid>
                     <visibility>4</visibility>
                     <type>2</type>
                     <declaration>void sendWithdrawl(int ammount)</declaration>
@@ -312,7 +312,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{cb85fb48-b8b6-464e-9434-2015a482d90b}</uid>
+                    <uid>{132a454c-43cd-4922-931d-47eab8d0db3e}</uid>
                     <visibility>4</visibility>
                     <type>2</type>
                     <declaration>void sendBye()</declaration>
@@ -320,7 +320,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{fed7b36d-aa40-465b-9394-33d1656d03a6}</uid>
+                    <uid>{8f440fe6-a7fc-458f-80c9-07b787d04508}</uid>
                     <visibility>7</visibility>
                     <type>2</type>
                     <declaration>void recvPasswd()</declaration>
@@ -328,7 +328,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{673190c3-b401-4107-8b65-1bb1a9483497}</uid>
+                    <uid>{e91baefc-85ac-4103-9afe-cc031cea344c}</uid>
                     <visibility>7</visibility>
                     <type>2</type>
                     <declaration>void recvOk()</declaration>
@@ -336,7 +336,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{5ae6cd4f-8544-456f-a78d-d9adab12c479}</uid>
+                    <uid>{45e6262e-5736-4d72-9dfa-e018c4efcf03}</uid>
                     <visibility>7</visibility>
                     <type>2</type>
                     <declaration>void recvErr(int code)</declaration>
@@ -344,7 +344,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{aa96f2af-e400-4306-8e43-a5462b594fd5}</uid>
+                    <uid>{ee878266-1c64-4e98-b010-1706fc341cd2}</uid>
                     <visibility>7</visibility>
                     <type>2</type>
                     <declaration>void recvAmount(int amt)</declaration>
@@ -352,7 +352,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{14291b7d-bc2a-4e6a-9afd-0bcc1d03e47d}</uid>
+                    <uid>{588ead26-3335-46d0-8d85-c4827897de22}</uid>
                     <visibility>7</visibility>
                     <type>2</type>
                     <declaration>void recvBye()</declaration>
@@ -639,14 +639,21 @@
                  <qlist>
                   <item>
                    <MClassMember>
-                    <uid>{32316b95-14e4-4397-b566-9d505493e0b9}</uid>
+                    <uid>{017c013a-c7a1-45ae-8336-8b0162525efe}</uid>
                     <type>2</type>
-                    <declaration>bool initConnection(const QHostAddress&amp; host,quint16 port)</declaration>
+                    <declaration>bool connect(const QHostAddress&amp; host,quint16 port)</declaration>
                    </MClassMember>
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{a36518ba-a0b5-4ff9-a25a-72ac15677d31}</uid>
+                    <uid>{b038fa65-fcf0-4f89-b2b7-618be8c01035}</uid>
+                    <type>2</type>
+                    <declaration>void disconnect()</declaration>
+                   </MClassMember>
+                  </item>
+                  <item>
+                   <MClassMember>
+                    <uid>{ebd16c6b-91f2-453d-b0a6-179ca91df796}</uid>
                     <visibility>4</visibility>
                     <type>2</type>
                     <declaration>void recvMsg(char *msg)</declaration>
@@ -654,7 +661,7 @@
                   </item>
                   <item>
                    <MClassMember>
-                    <uid>{6b249fd7-1967-41fa-b372-06a554d53ea4}</uid>
+                    <uid>{09c72aab-e867-4941-b73b-3d6204440f7e}</uid>
                     <visibility>7</visibility>
                     <type>2</type>
                     <declaration>void sendMsg(char *msg)</declaration>

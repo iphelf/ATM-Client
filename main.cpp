@@ -1,9 +1,22 @@
 #include <QApplication>
+#include <QDebug>
 #include "main.h"
-
-int main(int argc,char *argv[]){
+/*
+ * 45.77.152.88 : 444
+ * 用户名          密码
+ * DL444            123456
+ * Test             654321
+ * 4444444444444444 444444
+ */
+/*
+ * 119.29.117.67 : 3333
+ * 用户名          密码
+ * 998877665544     1122334455
+ */
+int main(int argc,char *argv[])
+{
     QApplication app(argc,argv);
-    AtmClient *client=new AtmClient;
-//    app.exec();
-    return 0;
+    AtmClient client;
+    client.run();
+    return app.exec();
 }

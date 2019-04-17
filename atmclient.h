@@ -11,6 +11,7 @@ class AtmClient : public QObject
     Q_OBJECT
 public:
     AtmClient();
+    void run();
 private:
     AtmClientModel  *model;
     AtmClientView   *view;

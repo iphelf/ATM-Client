@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include <QHostAddress>
 
-namespace Ui {
+namespace Ui
+{
 class AtmClientView;
 }
 
@@ -17,20 +18,20 @@ public:
     ~AtmClientView();
 
 signals:
-    void initConnection(const QHostAddress& host,quint16 port);
+    void connect(const QHostAddress& host,quint16 port);
     /*!
      * \brief   用户输入好host和port并点击了某个表示“开始连接”的按钮后，
      *          后台的一切相关操作将由此开始...
      * \param   host是用户输入的主机ip，port是端口号
      * \return  void
      */
-    void sendHelo(int userid);
+    void sendHelo(const char *userid);
     /*!
      * \brief   用户输入完userid后，向服务器问好，并找他索取密码输入框
      * \param   银行卡号？
      * \return  void
      */
-    void sendPasswd(int passwd);
+    void sendPasswd(const char *passwd);
     /*!
      * \brief   现在已经完成输入密码了，那么可以用sendPasswd发送出去了
      * \param   密码
@@ -54,14 +55,14 @@ signals:
      * \param   void
      * \return  void
      */
+    void disconnect();
 
 public slots:
     void recvPasswd();
     void recvOk();
     void recvErr(int code);
-    void recvAmount(int amt);
+    void recvAmount(double amt);
     void recvBye();
-
 private:
     Ui::AtmClientView *ui;
 };
