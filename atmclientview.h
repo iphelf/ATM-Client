@@ -13,6 +13,15 @@ class AtmClientView : public QMainWindow
 {
     Q_OBJECT
 
+    enum opType {
+        opConnect,
+        opHelo,
+        opPasswd,
+        opBalance,
+        opWithdrawl,
+        opBye
+    };
+
 public:
     explicit AtmClientView(QWidget *parent = 0);
     ~AtmClientView();
@@ -59,16 +68,37 @@ signals:
     void disconnect();
 
 public slots:
+    void connected();
     void recvPasswd();
     void recvOk();
     void recvErr(int code);
     void recvAmount(double amt);
     void recvBye();
+
+public:
+    void updateButtonConnect();
+    void startWait(opType op);
+    void stopWait();
+
 private slots:
-    void on_pushButton_clicked();
+    void on_buttonConnect_clicked();
+    void on_buttonLogin_clicked();
+    void on_buttonBalance_clicked();
+    void on_buttonWithdrawl_clicked();
+    void on_buttonLogout_clicked();
+    void on_buttonDisconnect_clicked();
+    void on_lineEditHost_textChanged(const QString);
+    void on_lineEditPort_textChanged(const QString &arg1);
 
 private:
     Ui::AtmClientView *ui;
+    QWidget *waitUi;
+    opType waitOp;
+    void *buffer;
+    int bufferInt;
+    QString bufferQString;
+    double bufferDouble;
+    bool opState;
 };
 
 #endif // ATMCLIENTVIEW_H

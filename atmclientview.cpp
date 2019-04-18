@@ -1,5 +1,8 @@
 #include "atmclientview.h"
 #include "ui_atmclientview.h"
+#include <QRegExpValidator>
+#include <QInputDialog>
+#include <QMessageBox>
 
 AtmClientView::AtmClientView(QWidget *parent) :
     QMainWindow(parent),
@@ -7,12 +10,48 @@ AtmClientView::AtmClientView(QWidget *parent) :
 {
     qDebug()<<"<<  View  :: AtmClientView\t>>";
     ui->setupUi(this);
+    ui->stackPanel->setCurrentIndex(0);
+    ui->stackWindow->setCurrentIndex(0);
+    QRegExpValidator *vldtHost=
+        new QRegExpValidator(
+        QRegExp(
+            QString(R"(^((\d|\d\d|[0-1]\d\d|2[0-4]\d|25[0-5]))"
+                    R"(\.){3})"
+                    R"((\d|\d\d|[0-1]\d\d|2[0-4]\d|25[0-5]))"
+                    R"($)")));
+    QRegExpValidator *vldtPort=
+        new QRegExpValidator(
+        QRegExp(
+            QString(R"(^\d+$)")));
+    ui->lineEditHost->setValidator(vldtHost);
+    ui->lineEditPort->setValidator(vldtPort);
+
+    waitUi=new QWidget(nullptr,Qt::FramelessWindowHint);
+    QLayout *layout=new QGridLayout(waitUi);
+    QLabel *labelWait=new QLabel("Loading...");
+    labelWait->setAlignment(Qt::AlignCenter);
+    layout->addWidget(labelWait);
+    layout->setAlignment(labelWait,Qt::AlignCenter);
+    waitUi->resize(200,100);
+
+    int bufferInt;
+    QString bufferQString;
+    double bufferDouble;
+
+    updateButtonConnect();
 }
 
 AtmClientView::~AtmClientView()
 {
     qDebug()<<"<<  View  :: ~AtmClientView\t>>";
     delete ui;
+}
+
+void AtmClientView::connected()
+{
+    qDebug()<<"<<  View  :: connected\t>>";
+    opState=true;
+    stopWait();
 }
 
 void AtmClientView::recvPasswd()
@@ -23,6 +62,8 @@ void AtmClientView::recvPasswd()
      * \return  void
      */
     qDebug()<<"<<  View  :: recvPasswd\t>>";
+    opState=true;
+    stopWait();
 }
 
 void AtmClientView::recvOk()
@@ -33,7 +74,9 @@ void AtmClientView::recvOk()
      * \param   void
      * \return  void
      */
-    qDebug()<<"<<  View  :: recvOk\t>>";
+    qDebug()<<"<<  View  :: recvOk\t\t>>";
+    opState=true;
+    stopWait();
 }
 
 void AtmClientView::recvErr(int code)
@@ -43,7 +86,11 @@ void AtmClientView::recvErr(int code)
      * \param   code是错误代码，不过其实并不用管啦，协议也没明确规定的说
      * \return  void
      */
-    qDebug()<<"<<  View  :: recvErr\t>>";
+    qDebug()<<"<<  View  :: recvErr\t\t>>";
+    opState=false;
+    bufferInt=code;
+    qDebug()<<"Error"<<code;
+    stopWait();
 }
 
 void AtmClientView::recvAmount(double amt)
@@ -54,6 +101,10 @@ void AtmClientView::recvAmount(double amt)
      * \return  void
      */
     qDebug()<<"<<  View  :: recvAmount\t>>";
+    opState=true;
+    bufferDouble=amt;
+    qDebug()<<"Amount: "<<amt;
+    stopWait();
 }
 
 void AtmClientView::recvBye()
@@ -63,11 +114,169 @@ void AtmClientView::recvBye()
      * \param   void
      * \return  void
      */
-    qDebug()<<"<<  View  :: recvBye\t>>";
+    opState=true;
+    qDebug()<<"<<  View  :: recvBye\t\t>>";
+    stopWait();
 }
 
-void AtmClientView::on_pushButton_clicked()
+void AtmClientView::updateButtonConnect()
 {
-    qDebug()<<"<<  View  :: test\t\t>>";
-    emit test();
+    int stateHost,statePort;
+    int pos=0;
+    QString sHost(ui->lineEditHost->text());
+    QString sPort(ui->lineEditPort->text());
+    stateHost=ui->lineEditHost->validator()->validate(sHost,pos);
+    pos=0;
+    statePort=ui->lineEditPort->validator()->validate(sPort,pos);
+    if(stateHost==QValidator::Acceptable &&
+       statePort==QValidator::Acceptable)
+        ui->buttonConnect->setEnabled(true);
+    else
+        ui->buttonConnect->setEnabled(false);
 }
+
+void AtmClientView::startWait(opType op)
+{
+    qDebug()<<"<<  View  :: startWait\t>>";
+    ui->centralwidget->setEnabled(false);
+    waitOp=op;
+    qDebug()<<"New waitOp: "<<op;
+//    waitUi->showFullScreen();
+    waitUi->show();
+}
+
+void AtmClientView::stopWait()
+{
+    qDebug()<<"<<  View  :: stopWait\t\t>>";
+    waitUi->hide();
+    qDebug()<<"Hided";
+    ui->centralwidget->setEnabled(true);
+    qDebug()<<"Enabled";
+    switch (waitOp) {
+    case opConnect: {
+        qDebug()<<"opConnect";
+        if(opState)
+            ui->stackWindow->setCurrentIndex(1);
+        else
+            QMessageBox::critical(nullptr,"Error",
+                                  "Connection can not be built.");
+        break;
+    }
+    case opHelo: {
+        qDebug()<<"opHelo";
+        if(opState) {
+            emit sendPasswd(ui->lineEditPasswd->text().toStdString().data());
+            startWait(opPasswd);
+        } else {
+            QMessageBox::critical(nullptr,"Error",
+                                  "Access to User account failed.");
+        }
+        break;
+    }
+    case opPasswd: {
+        qDebug()<<"opPasswd";
+        if(opState)
+            ui->stackPanel->setCurrentIndex(1);
+        else {
+            QMessageBox::critical(nullptr,"Error",
+                                  "Authentification failed.");
+        }
+        break;
+    }
+    case opBalance: {
+        qDebug()<<"opBalance";
+        if(opState) {
+            QMessageBox::about(nullptr,"Balance",
+                               QString("%1").arg(bufferDouble));
+            ui->textEditLog->append(QString("Balance: %1")\
+                                    .arg(bufferDouble));
+        } else {
+            QMessageBox::critical(nullptr,"Error",
+                                  "Query for balance failed.");
+        }
+        break;
+    }
+    case opWithdrawl: {
+        qDebug()<<"opWithdrawl";
+        if(opState) {
+            QMessageBox::about(nullptr,"Withdraw","Withdraw succeeded.");
+            ui->textEditLog->append(QString("Withdraw: %1")\
+                                    .arg(bufferInt));
+        } else {
+            QMessageBox::critical(nullptr,"Error",
+                                  "Withdraw failed.");
+        }
+        break;
+    }
+    case opBye: {
+        qDebug()<<"opBye";
+        if(opState)
+            ui->stackPanel->setCurrentIndex(0);
+        else {
+            QMessageBox::critical(nullptr,"Error",
+                                  "Logout failed.");
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void AtmClientView::on_buttonConnect_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonConnect_clicked\t>>";
+    startWait(opConnect);
+    emit connect(QHostAddress(ui->lineEditHost->text()),
+                 quint16(ui->lineEditPort->text().toInt()));
+}
+
+void AtmClientView::on_buttonLogin_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonLogin_clicked\t>>";
+    startWait(opHelo);
+    emit sendHelo(ui->lineEditUserid->text().toStdString().data());
+}
+
+void AtmClientView::on_buttonBalance_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonBalance_clicked\t>>";
+    startWait(opBalance);
+    emit sendBalance();
+}
+
+void AtmClientView::on_buttonWithdrawl_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonWithdrawl_clicked\t>>";
+    QInputDialog input;
+    bufferInt=input.getInt(nullptr,"Input amount","Amount=",0,0);
+    startWait(opWithdrawl);
+    emit sendWithdrawl(bufferInt);
+}
+
+void AtmClientView::on_buttonLogout_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonLogout_clicked\t>>";
+    startWait(opBye);
+    emit sendBye();
+}
+
+void AtmClientView::on_buttonDisconnect_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonDisconnect_clicked\t>>";
+    ui->stackWindow->setCurrentIndex(0);
+    emit disconnect();
+}
+
+void AtmClientView::on_lineEditHost_textChanged(const QString /*&text*/)
+{
+    qDebug()<<"<<  View  :: on_lineEditHost_textChanged\t>>";
+    updateButtonConnect();
+}
+
+void AtmClientView::on_lineEditPort_textChanged(const QString &arg1)
+{
+    qDebug()<<"<<  View  :: on_lineEditPort_textChanged\t>>";
+    updateButtonConnect();
+}
+

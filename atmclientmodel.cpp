@@ -13,11 +13,12 @@ AtmClientModel::AtmClientModel(AtmClientView *v, AtmClientTcp *t)
     this->view=v;
     this->tcp=t;
     nMsgType=5;
-    re=new QRegExp[nMsgType] {QRegExp(R"(^PASSWD\n$)"),
-                              QRegExp(R"(^OK\n$)"),
-                              QRegExp(R"(^ERR (-?[0-9]*)\n$)"),
-                              QRegExp(R"(^AMOUNT (-?\d*(\.\d*)?)\n$)"),
-                              QRegExp(R"(^BYE\n$)")
+    QString delim="";
+    re=new QRegExp[nMsgType] {QRegExp(R"(^PASSWD\w?\r?\n?$)"),
+                              QRegExp(R"(^OK\w?\r?\n?$)"),
+                              QRegExp(R"(^ERR (-?[0-9]*)\w?\r?\n?$)"),
+                              QRegExp(R"(^AMOUNT (-?\d*(\.\d*)?)\w?\r?\n?$)"),
+                              QRegExp(R"(^BYE\w?\r?\n?$)")
                              };
     connect(this,SIGNAL(pushMsg(const char*)),tcp,SLOT(sendMsg(const char*)));
     connect(tcp,SIGNAL(recvMsg(const char*)),this,SLOT(pullMsg(const char*)));
@@ -58,20 +59,25 @@ void AtmClientModel::toConnect(const QHostAddress &host, quint16 port)
     qDebug()<<"<<  Model :: toConnect\t>>";
     if(!tcp->connect(host,port))
         view->recvErr(0);
+    else
+        view->connected();
 }
 
 void AtmClientModel::pullMsg(const char *msg)
 {
-    qDebug()<<"<<  Model :: pullMsg\t>>";
+    qDebug()<<"<<  Model :: pullMsg\t\t>>";
     QString raw(msg);
-    for(int i=0; i<nMsgType; i++) if(re->exactMatch(raw)) {
+    qDebug()<<raw;
+    for(int i=0; i<nMsgType; i++) if(re[i].exactMatch(raw)) {
             switch (i) {
-            case 0:
+            case 0: {
                 view->recvPasswd();
                 break;
-            case 1:
+            }
+            case 1: {
                 view->recvOk();
                 break;
+            }
             case 2: {
                 int code=re[i].cap(1).toInt();
                 view->recvErr(code);
@@ -82,9 +88,10 @@ void AtmClientModel::pullMsg(const char *msg)
                 view->recvAmount(amt);
                 break;
             }
-            case 4:
+            case 4: {
                 view->recvBye();
                 break;
+            }
             default:
                 break;
             }
@@ -96,26 +103,28 @@ void AtmClientModel::pullMsg(const char *msg)
 void AtmClientModel::toSendHelo(const char *userid)
 {
     qDebug()<<"<<  Model :: toSendHelo\t>>";
-    emit pushMsg(QString("HELO %1\n").arg(userid).toStdString().data());
+    emit pushMsg(QString("HELO %1%2").arg(userid)\
+                 .arg(delim).toStdString().data());
 }
 void AtmClientModel::toSendPasswd(const char *passwd)
 {
     qDebug()<<"<<  Model :: toSendPasswd\t>>";
-    emit pushMsg(QString("PASSWD %1\n").arg(passwd).toStdString().data());
+    emit pushMsg(QString("PASSWD %1%2").arg(passwd)\
+                 .arg(delim).toStdString().data());
 }
 void AtmClientModel::toSendBalance()
 {
     qDebug()<<"<<  Model :: toSendBalance\t>>";
-    emit pushMsg("BALANCE\n");
+    emit pushMsg(QString("BALANCE%1").arg(delim).toStdString().data());
 }
 void AtmClientModel::toSendWithdrawl(int amount)
 {
     qDebug()<<"<<  Model :: toSendWithdrawl\t>>";
-    emit pushMsg(QString("WITHDRAWL %1\n").arg(amount).toStdString().data());
+    emit pushMsg(QString("WITHDRAWL %1%2").arg(amount)\
+                 .arg(delim).toStdString().data());
 }
 void AtmClientModel::toSendBye()
 {
     qDebug()<<"<<  Model :: toSendBye\t>>";
-    emit pushMsg("BYE\n");
-    tcp->disconnect();
+    emit pushMsg(QString("BYE%1").arg(delim).toStdString().data());
 }

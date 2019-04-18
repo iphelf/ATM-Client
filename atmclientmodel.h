@@ -48,6 +48,7 @@ private:
     AtmClientTcp *tcp;
     QRegExp *re;
     int nMsgType;
+    QString delim;
 };
 
 #endif // ATMCLIENTMODEL_H

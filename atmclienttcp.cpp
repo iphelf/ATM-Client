@@ -47,7 +47,7 @@ void AtmClientTcp:: sendMsg(const char *msg)
      * \param   msg是要发送的内容
      * \return  void
      */
-    qDebug()<<"<<  Tcp   :: sendMsg\t>>";
+    qDebug()<<"<<  Tcp   :: sendMsg\t\t>>";
     socket->write(msg);
     socket->flush();
     qDebug() << "Sent: "<<msg;
@@ -55,11 +55,12 @@ void AtmClientTcp:: sendMsg(const char *msg)
 
 void AtmClientTcp::read()
 {
-    qDebug()<<"<<  Tcp   :: read\t>>";
+    qDebug()<<"<<  Tcp   :: read\t\t>>";
     while(socket->bytesAvailable()>0) {
         QByteArray buffer=socket->readAll();
         buffer.data();
         qDebug() << "Received: "<<buffer.data();
+        emit recvMsg(buffer.data());
     }
 }
 
