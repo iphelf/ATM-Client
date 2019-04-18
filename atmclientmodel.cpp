@@ -84,7 +84,7 @@ void AtmClientModel::pullMsg(const char *msg)
                 break;
             }
             case 3: {
-                double amt=re[i].cap(1).toDouble();
+                QString amt=re[i].cap(1);
                 view->recvAmount(amt);
                 break;
             }

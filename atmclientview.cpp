@@ -89,7 +89,7 @@ void AtmClientView::recvErr(int code)
     stopWait();
 }
 
-void AtmClientView::recvAmount(double amt)
+void AtmClientView::recvAmount(QString amt)
 {
     /*!
      * \brief   你的查询余额请求得到正确回馈了！
@@ -98,7 +98,7 @@ void AtmClientView::recvAmount(double amt)
      */
     qDebug()<<"<<  View  :: recvAmount\t>>";
     opState=true;
-    bufferDouble=amt;
+    bufferQString=amt;
     qDebug()<<"Amount: "<<amt;
     stopWait();
 }
@@ -183,9 +183,9 @@ void AtmClientView::stopWait()
         qDebug()<<"opBalance";
         if(opState) {
             QMessageBox::about(nullptr,"Balance",
-                               QString("%1").arg(bufferDouble));
+                               QString("%1").arg(bufferQString));
             ui->textEditLog->append(QString("Balance: %1")\
-                                    .arg(bufferDouble));
+                                    .arg(bufferQString));
         } else {
             QMessageBox::critical(nullptr,"Error",
                                   "Query for balance failed.");
@@ -245,7 +245,8 @@ void AtmClientView::on_buttonWithdrawl_clicked()
 {
     qDebug()<<"<<  View  :: on_buttonWithdrawl_clicked\t>>";
     QInputDialog input;
-    bufferInt=input.getInt(nullptr,"Input amount","Amount=",0,0);
+    bufferInt=input.getInt(nullptr,"Input amount","Amount=",-1,0);
+    if(bufferInt==-1) return;
     startWait(opWithdrawl);
     emit sendWithdrawl(bufferInt);
 }
