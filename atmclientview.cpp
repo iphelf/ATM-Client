@@ -34,10 +34,6 @@ AtmClientView::AtmClientView(QWidget *parent) :
     layout->setAlignment(labelWait,Qt::AlignCenter);
     waitUi->resize(200,100);
 
-    int bufferInt;
-    QString bufferQString;
-    double bufferDouble;
-
     updateButtonConnect();
 }
 
@@ -274,7 +270,7 @@ void AtmClientView::on_lineEditHost_textChanged(const QString /*&text*/)
     updateButtonConnect();
 }
 
-void AtmClientView::on_lineEditPort_textChanged(const QString &arg1)
+void AtmClientView::on_lineEditPort_textChanged(const QString /*&arg1*/)
 {
     qDebug()<<"<<  View  :: on_lineEditPort_textChanged\t>>";
     updateButtonConnect();

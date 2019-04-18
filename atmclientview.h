@@ -88,13 +88,12 @@ private slots:
     void on_buttonLogout_clicked();
     void on_buttonDisconnect_clicked();
     void on_lineEditHost_textChanged(const QString);
-    void on_lineEditPort_textChanged(const QString &arg1);
+    void on_lineEditPort_textChanged(const QString);
 
 private:
     Ui::AtmClientView *ui;
     QWidget *waitUi;
     opType waitOp;
-    void *buffer;
     int bufferInt;
     QString bufferQString;
     double bufferDouble;
