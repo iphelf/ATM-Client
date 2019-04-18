@@ -72,7 +72,7 @@ public slots:
     void recvPasswd();
     void recvOk();
     void recvErr(int code);
-    void recvAmount(double amt);
+    void recvAmount(QString amt);
     void recvBye();
 
 public:
@@ -96,7 +96,6 @@ private:
     opType waitOp;
     int bufferInt;
     QString bufferQString;
-    double bufferDouble;
     bool opState;
 };
 
