@@ -90,6 +90,7 @@ void AtmClientModel::pullMsg(const char *msg)
             }
             case 4: {
                 view->recvBye();
+                emit view->disconnect();
                 break;
             }
             default:

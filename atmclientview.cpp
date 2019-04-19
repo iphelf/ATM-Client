@@ -138,13 +138,13 @@ void AtmClientView::startWait(opType op)
     waitOp=op;
     qDebug()<<"New waitOp: "<<op;
 //    waitUi->showFullScreen();
-    waitUi->show();
+//    waitUi->show();
 }
 
 void AtmClientView::stopWait()
 {
     qDebug()<<"<<  View  :: stopWait\t\t>>";
-    waitUi->hide();
+//    waitUi->hide();
     qDebug()<<"Hided";
     ui->centralwidget->setEnabled(true);
     qDebug()<<"Enabled";
@@ -206,9 +206,10 @@ void AtmClientView::stopWait()
     }
     case opBye: {
         qDebug()<<"opBye";
-        if(opState)
+        if(opState) {
             ui->stackPanel->setCurrentIndex(0);
-        else {
+            ui->stackWindow->setCurrentIndex(0);
+        } else {
             QMessageBox::critical(nullptr,"Error",
                                   "Logout failed.");
         }

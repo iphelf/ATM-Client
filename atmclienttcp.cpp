@@ -34,6 +34,11 @@ bool AtmClientTcp::connect(const QHostAddress &host, quint16 port)
     return true;
 }
 
+bool AtmClientTcp::connected()
+{
+    return socket->state()==QAbstractSocket::ConnectedState;
+}
+
 void AtmClientTcp::disconnect()
 {
     qDebug()<<"<<  Tcp   :: disconnect\t>>";

@@ -13,5 +13,6 @@ AtmClient::AtmClient()
 
 void AtmClient::run()
 {
+    qDebug()<<"<<  Client:: run\t\t>>";
     model->run();
 }
