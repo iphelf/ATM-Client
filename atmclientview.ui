@@ -48,7 +48,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pageDisonnected">
        <property name="sizePolicy">
@@ -133,13 +133,13 @@
                </size>
               </property>
               <property name="text">
-               <string>Host</string>
+               <string>&amp;Host</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
               <property name="buddy">
-               <cstring></cstring>
+               <cstring>lineEditHost</cstring>
               </property>
              </widget>
             </item>
@@ -169,18 +169,21 @@
               <property name="placeholderText">
                <string>Host Address</string>
               </property>
+              <property name="clearButtonEnabled">
+               <bool>false</bool>
+              </property>
              </widget>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="labelPort">
               <property name="text">
-               <string>Port</string>
+               <string>&amp;Port</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
               <property name="buddy">
-               <cstring></cstring>
+               <cstring>lineEditPort</cstring>
               </property>
              </widget>
             </item>
@@ -407,10 +410,13 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>Password</string>
+                   <string>&amp;Password</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                  <property name="buddy">
+                   <cstring>lineEditPasswd</cstring>
                   </property>
                  </widget>
                 </item>
@@ -484,10 +490,13 @@
                 <item row="0" column="1">
                  <widget class="QLabel" name="labelUserid">
                   <property name="text">
-                   <string>User ID</string>
+                   <string>&amp;User ID</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                  <property name="buddy">
+                   <cstring>lineEditUserid</cstring>
                   </property>
                  </widget>
                 </item>
@@ -602,10 +611,13 @@
                    </sizepolicy>
                   </property>
                   <property name="text">
-                   <string>Log</string>
+                   <string>&amp;Log</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
+                  <property name="buddy">
+                   <cstring>textEditLog</cstring>
                   </property>
                  </widget>
                 </item>
@@ -647,6 +659,12 @@
                 <property name="verticalScrollBarPolicy">
                  <enum>Qt::ScrollBarAlwaysOn</enum>
                 </property>
+                <property name="autoFormatting">
+                 <set>QTextEdit::AutoBulletList</set>
+                </property>
+                <property name="tabChangesFocus">
+                 <bool>true</bool>
+                </property>
                 <property name="readOnly">
                  <bool>true</bool>
                 </property>
@@ -659,6 +677,9 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <property name="acceptRichText">
                  <bool>true</bool>
+                </property>
+                <property name="textInteractionFlags">
+                 <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                 </property>
                </widget>
               </item>
