@@ -22,7 +22,8 @@ AtmClientModel::AtmClientModel(AtmClientView *v, AtmClientTcp *t)
                              };
     connect(this,SIGNAL(pushMsg(const char*)),tcp,SLOT(sendMsg(const char*)));
     connect(tcp,SIGNAL(recvMsg(const char*)),this,SLOT(pullMsg(const char*)));
-    connect(view,SIGNAL(test()),this,SLOT(test()));
+    connect(view,SIGNAL(test(QHostAddress,quint16)),
+            this,SLOT(toTest(QHostAddress,quint16)));
     connect(view,SIGNAL(connect(QHostAddress,quint16)),
             this,SLOT(toConnect(QHostAddress,quint16)));
     connect(view,SIGNAL(sendHelo(const char*)),
@@ -49,9 +50,14 @@ void AtmClientModel::run()
     view->show();
 }
 
-void AtmClientModel::test()
+void AtmClientModel::toTest(const QHostAddress& host,quint16 port)
 {
-    qDebug()<<"<<  Model :: test\t\t>>";
+    qDebug()<<"<<  Model :: toTest\t\t>>";
+    if(tcp->connect(host,port)) {
+        tcp->disconnect();
+        view->testResult(true);
+    } else
+        view->testResult(false);
 }
 
 void AtmClientModel::toConnect(const QHostAddress &host, quint16 port)

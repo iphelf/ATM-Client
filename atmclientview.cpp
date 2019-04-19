@@ -43,6 +43,16 @@ AtmClientView::~AtmClientView()
     delete ui;
 }
 
+void AtmClientView::testResult(bool valid)
+{
+    qDebug()<<"<<  View  :: testResult\t>>";
+    if(valid)
+        opState=true;
+    else
+        opState=false;
+    stopWait();
+}
+
 void AtmClientView::connected()
 {
     qDebug()<<"<<  View  :: connected\t>>";
@@ -126,9 +136,9 @@ void AtmClientView::updateButtonConnect()
     statePort=ui->lineEditPort->validator()->validate(sPort,pos);
     if(stateHost==QValidator::Acceptable &&
        statePort==QValidator::Acceptable)
-        ui->buttonConnect->setEnabled(true);
+        ui->buttonConfigure->setEnabled(true);
     else
-        ui->buttonConnect->setEnabled(false);
+        ui->buttonConfigure->setEnabled(false);
 }
 
 void AtmClientView::startWait(opType op)
@@ -149,13 +159,24 @@ void AtmClientView::stopWait()
     ui->centralwidget->setEnabled(true);
     qDebug()<<"Enabled";
     switch (waitOp) {
+    case opTest: {
+        qDebug()<<"opTest";
+        if(opState)
+            QMessageBox::about(nullptr,"Test Server","Valid!");
+        else
+            QMessageBox::warning(nullptr,"Test Server","Invalid!");
+        break;
+    }
     case opConnect: {
         qDebug()<<"opConnect";
-        if(opState)
-            ui->stackWindow->setCurrentIndex(1);
-        else
+        if(opState) {
+            startWait(opHelo);
+            emit sendHelo(ui->lineEditUserid->text().toStdString().data());
+        } else
             QMessageBox::critical(nullptr,"Error",
-                                  "Connection can not be built.");
+                                  "Connection can not be built.\n"
+                                  "Please go to \"Configuration\" to make "
+                                  "things right.");
         break;
     }
     case opHelo: {
@@ -208,7 +229,6 @@ void AtmClientView::stopWait()
         qDebug()<<"opBye";
         if(opState) {
             ui->stackPanel->setCurrentIndex(0);
-            ui->stackWindow->setCurrentIndex(0);
         } else {
             QMessageBox::critical(nullptr,"Error",
                                   "Logout failed.");
@@ -220,19 +240,19 @@ void AtmClientView::stopWait()
     }
 }
 
-void AtmClientView::on_buttonConnect_clicked()
+void AtmClientView::on_buttonConfigure_clicked()
 {
-    qDebug()<<"<<  View  :: on_buttonConnect_clicked\t>>";
-    startWait(opConnect);
-    emit connect(QHostAddress(ui->lineEditHost->text()),
-                 quint16(ui->lineEditPort->text().toInt()));
+    qDebug()<<"<<  View  :: on_buttonConfigure_clicked\t>>";
+    serverHost=QHostAddress(ui->lineEditHost->text());
+    serverPort=quint16(ui->lineEditPort->text().toInt());
+    ui->stackWindow->setCurrentIndex(1);
 }
 
 void AtmClientView::on_buttonLogin_clicked()
 {
     qDebug()<<"<<  View  :: on_buttonLogin_clicked\t>>";
-    startWait(opHelo);
-    emit sendHelo(ui->lineEditUserid->text().toStdString().data());
+    startWait(opConnect);
+    emit connect(serverHost,serverPort);
 }
 
 void AtmClientView::on_buttonBalance_clicked()
@@ -266,6 +286,14 @@ void AtmClientView::on_buttonDisconnect_clicked()
     emit disconnect();
 }
 
+void AtmClientView::on_buttonTest_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonTest_clicked\t>>";
+    startWait(opTest);
+    emit test(QHostAddress(ui->lineEditHost->text()),
+              quint16(ui->lineEditPort->text().toInt()));
+}
+
 void AtmClientView::on_lineEditHost_textChanged(const QString /*&text*/)
 {
     qDebug()<<"<<  View  :: on_lineEditHost_textChanged\t>>";
@@ -278,3 +306,8 @@ void AtmClientView::on_lineEditPort_textChanged(const QString /*&arg1*/)
     updateButtonConnect();
 }
 
+void AtmClientView::on_buttonGoConfigure_clicked()
+{
+    qDebug()<<"<<  View  :: on_buttonGoConfigure_clicked\t>>";
+    ui->stackWindow->setCurrentIndex(0);
+}
