@@ -13,5 +13,11 @@ AtmClient::AtmClient()
 
 void AtmClient::run()
 {
+    qDebug()<<"<<  Client:: run\t\t>>";
     model->run();
+}
+
+void AtmClient::setDelimiter(const QString &delimiter)
+{
+    model->delim=delimiter;
 }

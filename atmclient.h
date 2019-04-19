@@ -12,6 +12,7 @@ class AtmClient : public QObject
 public:
     AtmClient();
     void run();
+    void setDelimiter(const QString& delimiter);
 private:
     AtmClientModel  *model;
     AtmClientView   *view;

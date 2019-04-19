@@ -26,12 +26,17 @@ bool AtmClientTcp::connect(const QHostAddress &host, quint16 port)
     //连接服务器
     socket->connectToHost(host, port);
     //等待连接成功
-    if(!socket->waitForConnected(30000)) {
+    if(!socket->waitForConnected(3000)) {
         qDebug()<<"Connection failed!";
         return false;
     }
     qDebug()<<"Connection succeeded!";
     return true;
+}
+
+bool AtmClientTcp::connected()
+{
+    return socket->state()==QAbstractSocket::ConnectedState;
 }
 
 void AtmClientTcp::disconnect()

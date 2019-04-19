@@ -12,6 +12,7 @@ public:
     AtmClientTcp();
     ~AtmClientTcp();
     bool connect(const QHostAddress& host,quint16 port);
+    bool connected();
 signals:
     void recvMsg(const char *msg);
     /*!

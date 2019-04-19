@@ -32,7 +32,7 @@ public:
     ~AtmClientModel();
     void run();
 public slots:
-    void test();
+    void toTest(const QHostAddress& host,quint16 port);
     void toConnect(const QHostAddress& host,quint16 port);
     void pullMsg(const char *msg);
     void toSendHelo(const char *userid);
@@ -46,8 +46,9 @@ signals:
 private:
     AtmClientView *view;
     AtmClientTcp *tcp;
-    QRegExp *re;
     int nMsgType;
+public:
+    QRegExp *re;
     QString delim;
 };
 

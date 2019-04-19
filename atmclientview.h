@@ -14,6 +14,7 @@ class AtmClientView : public QMainWindow
     Q_OBJECT
 
     enum opType {
+        opTest,
         opConnect,
         opHelo,
         opPasswd,
@@ -27,7 +28,7 @@ public:
     ~AtmClientView();
 
 signals:
-    void test();
+    void test(const QHostAddress& host,quint16 port);
     void connect(const QHostAddress& host,quint16 port);
     /*!
      * \brief   用户输入好host和port并点击了某个表示“开始连接”的按钮后，
@@ -68,6 +69,7 @@ signals:
     void disconnect();
 
 public slots:
+    void testResult(bool valid);
     void connected();
     void recvPasswd();
     void recvOk();
@@ -81,7 +83,7 @@ public:
     void stopWait();
 
 private slots:
-    void on_buttonConnect_clicked();
+    void on_buttonConfigure_clicked();
     void on_buttonLogin_clicked();
     void on_buttonBalance_clicked();
     void on_buttonWithdrawl_clicked();
@@ -89,9 +91,13 @@ private slots:
     void on_buttonDisconnect_clicked();
     void on_lineEditHost_textChanged(const QString);
     void on_lineEditPort_textChanged(const QString);
+    void on_buttonTest_clicked();
+    void on_buttonGoConfigure_clicked();
 
 private:
     Ui::AtmClientView *ui;
+    QHostAddress serverHost;
+    quint16 serverPort;
     QWidget *waitUi;
     opType waitOp;
     int bufferInt;
