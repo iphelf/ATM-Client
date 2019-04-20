@@ -182,8 +182,8 @@ void AtmClientView::stopWait()
     case opHelo: {
         qDebug()<<"opHelo";
         if(opState) {
-            emit sendPasswd(ui->lineEditPasswd->text().toStdString().data());
             startWait(opPasswd);
+            emit sendPasswd(ui->lineEditPasswd->text().toStdString().data());
         } else {
             QMessageBox::critical(nullptr,"Error",
                                   "Access to User account failed.");
