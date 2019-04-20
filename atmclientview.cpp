@@ -187,6 +187,7 @@ void AtmClientView::stopWait()
         } else {
             QMessageBox::critical(nullptr,"Error",
                                   "Access to User account failed.");
+            emit disconnect();
         }
         break;
     }
@@ -197,6 +198,7 @@ void AtmClientView::stopWait()
         else {
             QMessageBox::critical(nullptr,"Error",
                                   "Authentification failed.");
+            emit disconnect();
         }
         break;
     }
