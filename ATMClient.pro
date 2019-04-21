@@ -43,3 +43,6 @@ DISTFILES += \
 
 FORMS += \
     atmclientview.ui
+
+STATECHARTS += \
+    model.scxml
