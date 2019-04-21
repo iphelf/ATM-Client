@@ -197,9 +197,10 @@ void AtmClientView::stopWait()
     }
     case opPasswd: {
         qDebug()<<"opPasswd";
-        if(opState)
+        if(opState) {
             ui->stackPanel->setCurrentIndex(1);
-        else {
+            ui->textEditLog->clear();
+        } else {
             QMessageBox::critical(nullptr,"Error",
                                   "Authentification failed.");
             emit disconnect();
