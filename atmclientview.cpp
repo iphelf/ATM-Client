@@ -120,13 +120,14 @@ void AtmClientView::recvBye()
      * \param   void
      * \return  void
      */
-    opState=true;
     qDebug()<<"<<  View  :: recvBye\t\t>>";
+    opState=true;
     stopWait();
 }
 
 void AtmClientView::updateButtonConnect()
 {
+    qDebug()<<"<<  View  :: updateButtonConnect\t>>";
     int stateHost,statePort;
     int pos=0;
     QString sHost(ui->lineEditHost->text());
