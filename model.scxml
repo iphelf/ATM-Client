@@ -3,7 +3,7 @@
     <state id="ATM Client">
         <qt:editorinfo geometry="-226.27;-36.94;-97.21;46.70;1646.41;888.07" scenegeometry="-226.27;-36.94;-323.48;9.76;1646.41;888.07"/>
         <state id="Configuration" initial="等待输入Host/Port/点击">
-            <qt:editorinfo geometry="166.99;308.90;-92.57;-140.49;524.83;349.49" scenegeometry="-59.28;271.96;-151.85;131.47;524.83;349.49"/>
+            <qt:editorinfo geometry="166.99;308.90;-92.19;-132.57;524.45;345.65" scenegeometry="-59.28;271.96;-151.47;139.39;524.45;345.65"/>
             <state id="等待输入Host/Port/点击">
                 <qt:editorinfo geometry="-26.60;129.17;-45.21;-50;240.62;100" scenegeometry="-173.73;379.17;-218.94;329.17;240.62;100"/>
                 <transition type="external" event="点击Test" target="检测Host:Port能否建立连接">
@@ -36,11 +36,11 @@
             </state>
         </state>
         <state id="Login">
-            <qt:editorinfo geometry="7.15;636.26;-84.36;-87.92;886.48;361.60" scenegeometry="-219.12;600.32;-303.48;512.40;886.48;361.60"/>
+            <qt:editorinfo geometry="7.15;636.26;-84.36;-87.79;889.28;357.64" scenegeometry="-219.12;599.32;-303.48;511.53;889.28;357.64"/>
             <state id="等待输入Userid/Password/点击">
                 <qt:editorinfo geometry="-21.36;32;-43;-50;267;100" scenegeometry="-233.48;635.32;-276.48;585.32;267;100"/>
                 <transition type="external" event="点击Configuration" target="Configuration">
-                    <qt:editorinfo movePoint="58.11;57.75" endTargetFactors="30.64;97.42" startTargetFactors="72.32;15.52"/>
+                    <qt:editorinfo movePoint="-41.69;48.31" endTargetFactors="19.47;97.69" startTargetFactors="86;15.65"/>
                 </transition>
                 <transition type="external" event="点击Login" target="尝试建立连接"/>
             </state>
@@ -76,7 +76,7 @@
                     <qt:editorinfo movePoint="48;-21"/>
                 </transition>
                 <transition type="external" event="收到OK" target="Operation">
-                    <qt:editorinfo movePoint="3;43"/>
+                    <qt:editorinfo movePoint="-6.44;45.70"/>
                 </transition>
             </state>
             <state id="输出密码错误">
@@ -87,14 +87,14 @@
             </state>
         </state>
         <state id="Operation">
-            <qt:editorinfo geometry="954.85;633.26;-134.58;-482.65;707.19;764.16" scenegeometry="728.58;596.32;594;113.67;707.19;764.16"/>
+            <qt:editorinfo geometry="954.85;633.26;-119.87;-482.01;691.96;753.44" scenegeometry="728.58;596.32;608.71;114.31;691.96;753.44"/>
             <state id="等待输入点击">
                 <qt:editorinfo geometry="167.82;-143.44;-32.12;-50;160.36;100" scenegeometry="896.40;453.88;864.28;403.88;160.36;100"/>
-                <transition type="external" event="点击Que..." target="发送BALANCE">
-                    <qt:editorinfo movePoint="58.06;48.49"/>
+                <transition type="external" event="点击Query Balance" target="发送BALANCE">
+                    <qt:editorinfo movePoint="32.42;47.38"/>
                 </transition>
-                <transition type="external" event="点击With..." target="输入金额">
-                    <qt:editorinfo movePoint="13.42;-22.35" endTargetFactors="65.46;12.76" startTargetFactors="62.34;90.64"/>
+                <transition type="external" event="点击Withdraw Cash" target="输入金额">
+                    <qt:editorinfo movePoint="6.73;-12.32" endTargetFactors="65.46;12.76" startTargetFactors="62.34;90.64"/>
                 </transition>
                 <transition type="external" event="点击Clear" target="清空日志">
                     <qt:editorinfo movePoint="-24.59;32.78" endTargetFactors="7.54;71.96" startTargetFactors="92.02;70.22"/>
@@ -161,12 +161,12 @@
             <state id="发送BYE">
                 <qt:editorinfo geometry="-13.58;-136.32;-60;-50;120;100" scenegeometry="715;461;655;411;120;100"/>
                 <transition type="external" event="收到BYE" target="Login">
-                    <qt:editorinfo movePoint="24;6" endTargetFactors="95.52;4.93"/>
+                    <qt:editorinfo movePoint="28.05;8.70" endTargetFactors="95.52;4.93"/>
                 </transition>
             </state>
         </state>
         <transition type="external" event="关闭窗口" target="Final_3">
-            <qt:editorinfo movePoint="51.24;20.50"/>
+            <qt:editorinfo movePoint="56.63;20.50"/>
         </transition>
     </state>
     <final id="Final_3">
