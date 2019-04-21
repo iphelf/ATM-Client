@@ -135,10 +135,13 @@ void AtmClientView::updateButtonConnect()
     pos=0;
     statePort=ui->lineEditPort->validator()->validate(sPort,pos);
     if(stateHost==QValidator::Acceptable &&
-       statePort==QValidator::Acceptable)
+       statePort==QValidator::Acceptable) {
         ui->buttonConfigure->setEnabled(true);
-    else
+        ui->buttonTest->setEnabled(true);
+    } else {
         ui->buttonConfigure->setEnabled(false);
+        ui->buttonTest->setEnabled(false);
+    }
 }
 
 void AtmClientView::startWait(opType op)
