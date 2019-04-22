@@ -6,18 +6,137 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>453</width>
-    <height>174</height>
+    <width>750</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <family>微软雅黑</family>
-    <pointsize>14</pointsize>
+    <family>Tahoma</family>
+    <pointsize>22</pointsize>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
    </font>
   </property>
   <property name="windowTitle">
    <string>ATM Client</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow *{
+    font-size:20px;
+    font-weight:bold;
+	font: 22pt &quot;Tahoma&quot;;
+    background: rgba(0, 0, 0, 60);
+    color: cyan;
+    outline:none;
+    selection-color:white;
+    selection-background-color:limegreen;
+}
+QMainWindow{
+	border-image: url(./pic/Bright.jpg) 0 0 0 0 stretch stretch;
+}
+*:focus{
+    color: limegreen;
+    outline:none;
+}
+#labelCQUBank{
+	font: 36pt &quot;Tahoma&quot;;
+}
+#labelMenu{
+	font: 36pt &quot;Tahoma&quot;;
+}
+QPushButton{
+    background:#333333;
+	background-color: rgba(51, 51, 51, 60);
+    padding:10px;
+    color:cyan;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0);
+    border-radius: 0px;
+}
+QPushButton:hover{
+    color:cyan;
+    border-color:cyan;
+    /*
+    border-top-color: cyan;
+    border-bottom-color: cyan;
+    border-left-color: black;
+    border-right-color: black;
+    */
+}
+QPushButton:pressed{
+	background-color: rgba(17, 17, 17, 60);
+    border-color:rgba(255, 255, 255);
+}
+QPushButton:focus{
+    color:limegreen;
+    outline:none;
+}
+QLineEdit{
+    border-style:outset;
+    margin:5px;
+    border-width:2px;
+	border-color:transparent;
+    border-bottom-color: cyan;
+}
+QLineEdit:hover{
+    border-bottom-color:rgba(255, 255, 255, 60);
+    color:limegreen;
+}
+Line{
+    background-color:cyan;
+}
+ QScrollBar:vertical {
+     border: 2px solid cyan;
+     background: transparent;
+     width: 15px;
+     margin: 22px 0 22px 0;
+ }
+ QScrollBar::handle:vertical {
+     background: cyan;
+     min-height: 20px;
+ }
+ QScrollBar::handle:vertical:hover{
+     background:limegreen;
+ }
+ QScrollBar::add-line:vertical {
+     border: 2px solid cyan;
+     background: transparent;
+     height: 20px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+
+ QScrollBar::sub-line:vertical {
+     border: 2px solid cyan;
+     background: transparent;
+     height: 20px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+ QScrollBar::up-arrow:vertical,
+ QScrollBar::down-arrow:vertical {
+     border: 2px solid cyan;
+     width: 3px;
+     height: 3px;
+     background: cyan;
+ }
+ QScrollBar::up-arrow:vertical:hover,
+ QScrollBar::down-arrow:vertical:hover {
+     border: 2px solid limegreen;
+     width: 3px;
+     height: 3px;
+     background: limegreen;
+ }
+
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: transparent;
+ }
+QLabel{
+     margin:5px;
+ }</string>
   </property>
   <property name="inputMethodHints">
    <set>Qt::ImhNone</set>
@@ -76,6 +195,15 @@
         </item>
         <item>
          <widget class="QLabel" name="labelCQUBank">
+          <property name="font">
+           <font>
+            <family>Tahoma</family>
+            <pointsize>36</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
            <string>ATM Configuration</string>
           </property>
@@ -163,8 +291,11 @@
               <property name="text">
                <string>119.29.117.67</string>
               </property>
+              <property name="frame">
+               <bool>true</bool>
+              </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
               <property name="placeholderText">
                <string>Host Address</string>
@@ -205,7 +336,7 @@
                <string>3333</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
               <property name="placeholderText">
                <string>Port Number</string>
@@ -242,7 +373,7 @@
             <item>
              <widget class="QPushButton" name="buttonConfigure">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -275,10 +406,17 @@
           </item>
          </layout>
         </item>
+        <item>
+         <widget class="QPushButton" name="buttonExit">
+          <property name="text">
+           <string>Exit</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="pageConnected">
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="2,0,6">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -295,22 +433,6 @@
          <number>0</number>
         </property>
         <item>
-         <spacer name="verticalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>1</width>
-            <height>6</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <widget class="QLabel" name="labelMenu">
           <property name="text">
            <string>CQU Bank</string>
@@ -319,22 +441,6 @@
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>1</width>
-            <height>6</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item>
          <widget class="Line" name="line_2">
@@ -366,10 +472,26 @@
              <number>0</number>
             </property>
             <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_3">
+             <layout class="QVBoxLayout" name="verticalLayout_3" stretch="2,5,2,0">
               <property name="spacing">
                <number>0</number>
               </property>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>1</width>
+                  <height>6</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
               <item>
                <layout class="QGridLayout" name="gridLayout_3">
                 <item row="0" column="0">
@@ -432,7 +554,7 @@
                    <enum>QLineEdit::Password</enum>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>Password</string>
@@ -461,7 +583,7 @@
                    <string>998877665544</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>User ID</string>
@@ -614,17 +736,10 @@
                    <string>&amp;Log</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignCenter</set>
                   </property>
                   <property name="buddy">
                    <cstring>textEditLog</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="text">
-                   <string>&amp;Clear</string>
                   </property>
                  </widget>
                 </item>
@@ -633,7 +748,7 @@
               <item>
                <widget class="QTextEdit" name="textEditLog">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -647,7 +762,7 @@
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
-                  <height>71</height>
+                  <height>16777215</height>
                  </size>
                 </property>
                 <property name="acceptDrops">
@@ -672,14 +787,27 @@
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'微软雅黑'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Tahoma'; font-size:22pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'微软雅黑'; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="acceptRichText">
                  <bool>true</bool>
                 </property>
                 <property name="textInteractionFlags">
                  <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>&amp;Clear</string>
                 </property>
                </widget>
               </item>
@@ -697,6 +825,22 @@ p, li { white-space: pre-wrap; }
               <property name="spacing">
                <number>0</number>
               </property>
+              <item>
+               <spacer name="verticalSpacer_11">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>1</width>
+                  <height>6</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
               <item>
                <widget class="QPushButton" name="buttonBalance">
                 <property name="minimumSize">
@@ -716,7 +860,7 @@ p, li { white-space: pre-wrap; }
                  <enum>Qt::Vertical</enum>
                 </property>
                 <property name="sizeType">
-                 <enum>QSizePolicy::Minimum</enum>
+                 <enum>QSizePolicy::Expanding</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -740,12 +884,12 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
-               <spacer name="verticalSpacer_10">
+               <spacer name="verticalSpacer_12">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
                 <property name="sizeType">
-                 <enum>QSizePolicy::Minimum</enum>
+                 <enum>QSizePolicy::Expanding</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -790,17 +934,18 @@ p, li { white-space: pre-wrap; }
  <tabstops>
   <tabstop>lineEditHost</tabstop>
   <tabstop>lineEditPort</tabstop>
-  <tabstop>buttonConfigure</tabstop>
   <tabstop>buttonTest</tabstop>
+  <tabstop>buttonConfigure</tabstop>
   <tabstop>buttonBalance</tabstop>
   <tabstop>buttonWithdrawl</tabstop>
   <tabstop>pushButton</tabstop>
-  <tabstop>textEditLog</tabstop>
   <tabstop>buttonLogout</tabstop>
   <tabstop>lineEditUserid</tabstop>
   <tabstop>lineEditPasswd</tabstop>
-  <tabstop>buttonLogin</tabstop>
   <tabstop>buttonGoConfigure</tabstop>
+  <tabstop>buttonLogin</tabstop>
+  <tabstop>textEditLog</tabstop>
+  <tabstop>buttonExit</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -811,12 +956,28 @@ p, li { white-space: pre-wrap; }
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>210</x>
-     <y>67</y>
+     <x>220</x>
+     <y>439</y>
     </hint>
     <hint type="destinationlabel">
-     <x>182</x>
-     <y>116</y>
+     <x>192</x>
+     <y>286</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonExit</sender>
+   <signal>clicked()</signal>
+   <receiver>AtmClientView</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>399</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>338</x>
+     <y>482</y>
     </hint>
    </hints>
   </connection>
