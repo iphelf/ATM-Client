@@ -43,3 +43,9 @@ DISTFILES += \
 
 FORMS += \
     atmclientview.ui
+
+STATECHARTS += \
+    model.scxml
+
+RESOURCES += \
+    pic.qrc

@@ -27,6 +27,11 @@ public:
     explicit AtmClientView(QWidget *parent = 0);
     ~AtmClientView();
 
+protected:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+
 signals:
     void test(const QHostAddress& host,quint16 port);
     void connect(const QHostAddress& host,quint16 port);
@@ -88,7 +93,6 @@ private slots:
     void on_buttonBalance_clicked();
     void on_buttonWithdrawl_clicked();
     void on_buttonLogout_clicked();
-    void on_buttonDisconnect_clicked();
     void on_lineEditHost_textChanged(const QString);
     void on_lineEditPort_textChanged(const QString);
     void on_buttonTest_clicked();
@@ -96,6 +100,9 @@ private slots:
 
 private:
     Ui::AtmClientView *ui;
+    bool m_move;
+    QPoint m_startPoint;
+    QPoint m_windowPoint;
     QHostAddress serverHost;
     quint16 serverPort;
     QWidget *waitUi;

@@ -3,9 +3,10 @@
 #include <QRegExpValidator>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QMouseEvent>
 
 AtmClientView::AtmClientView(QWidget *parent) :
-    QMainWindow(parent),
+    QMainWindow(parent,Qt::FramelessWindowHint),
     ui(new Ui::AtmClientView)
 {
     qDebug()<<"<<  View  :: AtmClientView\t>>";
@@ -41,6 +42,36 @@ AtmClientView::~AtmClientView()
 {
     qDebug()<<"<<  View  :: ~AtmClientView\t>>";
     delete ui;
+}
+
+void AtmClientView::mousePressEvent(QMouseEvent *event)
+{
+    //当鼠标左键点击时.
+    if (event->button() == Qt::LeftButton) {
+        m_move = true;
+        //记录鼠标的世界坐标.
+        m_startPoint = event->globalPos();
+        //记录窗体的世界坐标.
+        m_windowPoint = this->frameGeometry().topLeft();
+    }
+}
+
+void AtmClientView::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton) {
+        //移动中的鼠标位置相对于初始位置的相对位置.
+        QPoint relativePos = event->globalPos() - m_startPoint;
+        //然后移动窗体即可.
+        this->move(m_windowPoint + relativePos );
+    }
+}
+
+void AtmClientView::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        //改变移动状态.
+        m_move = false;
+    }
 }
 
 void AtmClientView::testResult(bool valid)
@@ -120,13 +151,14 @@ void AtmClientView::recvBye()
      * \param   void
      * \return  void
      */
-    opState=true;
     qDebug()<<"<<  View  :: recvBye\t\t>>";
+    opState=true;
     stopWait();
 }
 
 void AtmClientView::updateButtonConnect()
 {
+    qDebug()<<"<<  View  :: updateButtonConnect\t>>";
     int stateHost,statePort;
     int pos=0;
     QString sHost(ui->lineEditHost->text());
@@ -135,10 +167,13 @@ void AtmClientView::updateButtonConnect()
     pos=0;
     statePort=ui->lineEditPort->validator()->validate(sPort,pos);
     if(stateHost==QValidator::Acceptable &&
-       statePort==QValidator::Acceptable)
+       statePort==QValidator::Acceptable) {
         ui->buttonConfigure->setEnabled(true);
-    else
+        ui->buttonTest->setEnabled(true);
+    } else {
         ui->buttonConfigure->setEnabled(false);
+        ui->buttonTest->setEnabled(false);
+    }
 }
 
 void AtmClientView::startWait(opType op)
@@ -193,9 +228,10 @@ void AtmClientView::stopWait()
     }
     case opPasswd: {
         qDebug()<<"opPasswd";
-        if(opState)
+        if(opState) {
             ui->stackPanel->setCurrentIndex(1);
-        else {
+            ui->textEditLog->clear();
+        } else {
             QMessageBox::critical(nullptr,"Error",
                                   "Authentification failed.");
             emit disconnect();
@@ -279,13 +315,6 @@ void AtmClientView::on_buttonLogout_clicked()
     qDebug()<<"<<  View  :: on_buttonLogout_clicked\t>>";
     startWait(opBye);
     emit sendBye();
-}
-
-void AtmClientView::on_buttonDisconnect_clicked()
-{
-    qDebug()<<"<<  View  :: on_buttonDisconnect_clicked\t>>";
-    ui->stackWindow->setCurrentIndex(0);
-    emit disconnect();
 }
 
 void AtmClientView::on_buttonTest_clicked()

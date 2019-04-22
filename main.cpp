@@ -18,7 +18,7 @@ int main(int argc,char *argv[])
 {
     QApplication app(argc,argv);
     AtmClient client;
-    client.setDelimiter("");
+    client.setDelimiter("\n");
     client.run();
     return app.exec();
 }
