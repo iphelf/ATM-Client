@@ -46,3 +46,6 @@ FORMS += \
 
 STATECHARTS += \
     model.scxml
+
+RESOURCES += \
+    pic.qrc

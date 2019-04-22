@@ -34,7 +34,8 @@
     selection-background-color:limegreen;
 }
 QMainWindow{
-	border-image: url(./pic/Bright.jpg) 0 0 0 0 stretch stretch;
+	border-image: url(:/pic/Bright.jpg) 0 0 0 0 stretch stretch;
+/*	border-image: url(./pic/Bright.jpg) 0 0 0 0 stretch stretch;*/
 }
 *:focus{
     color: limegreen;
@@ -455,7 +456,7 @@ QTextEdit{
         <item>
          <widget class="QStackedWidget" name="stackPanel">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="pageLogin">
            <layout class="QGridLayout" name="gridLayout_4">
