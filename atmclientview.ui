@@ -68,7 +68,7 @@ QPushButton:hover{
 }
 QPushButton:pressed{
 	background-color: rgba(17, 17, 17, 60);
-    border-color:rgba(255, 255, 255);
+    border-color:rgb(255, 255, 255);
 }
 QPushButton:focus{
     color:limegreen;
@@ -82,7 +82,7 @@ QLineEdit{
     border-bottom-color: cyan;
 }
 QLineEdit:hover{
-    border-bottom-color:rgba(255, 255, 255, 60);
+    border-bottom-color:rgb(255, 255, 255);
     color:limegreen;
 }
 Line{
@@ -136,7 +136,10 @@ Line{
  }
 QLabel{
      margin:5px;
- }</string>
+ }
+QTextEdit{
+	font: 20pt &quot;Courier New&quot;;
+}</string>
   </property>
   <property name="inputMethodHints">
    <set>Qt::ImhNone</set>
@@ -452,7 +455,7 @@ QLabel{
         <item>
          <widget class="QStackedWidget" name="stackPanel">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="pageLogin">
            <layout class="QGridLayout" name="gridLayout_4">
@@ -654,7 +657,7 @@ QLabel{
                </spacer>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1,1,0">
                 <item>
                  <widget class="QPushButton" name="buttonGoConfigure">
                   <property name="minimumSize">
@@ -664,7 +667,27 @@ QLabel{
                    </size>
                   </property>
                   <property name="text">
-                   <string>&amp;Configuration</string>
+                   <string>&amp;Config</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="buttonExit_2">
+                  <property name="text">
+                   <string>&amp;Exit</string>
                   </property>
                  </widget>
                 </item>
@@ -787,7 +810,7 @@ QLabel{
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Tahoma'; font-size:22pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Courier New'; font-size:20pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'微软雅黑'; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="acceptRichText">
@@ -950,6 +973,22 @@ p, li { white-space: pre-wrap; }
  <resources/>
  <connections>
   <connection>
+   <sender>buttonExit</sender>
+   <signal>clicked()</signal>
+   <receiver>AtmClientView</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>399</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>338</x>
+     <y>482</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>textEditLog</receiver>
@@ -966,18 +1005,18 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>buttonExit</sender>
+   <sender>buttonExit_2</sender>
    <signal>clicked()</signal>
    <receiver>AtmClientView</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>338</x>
-     <y>399</y>
+     <x>370</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
-     <x>338</x>
-     <y>482</y>
+     <x>371</x>
+     <y>475</y>
     </hint>
    </hints>
   </connection>
