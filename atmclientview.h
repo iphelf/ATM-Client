@@ -93,7 +93,6 @@ private slots:
     void on_buttonBalance_clicked();
     void on_buttonWithdrawl_clicked();
     void on_buttonLogout_clicked();
-    void on_buttonDisconnect_clicked();
     void on_lineEditHost_textChanged(const QString);
     void on_lineEditPort_textChanged(const QString);
     void on_buttonTest_clicked();

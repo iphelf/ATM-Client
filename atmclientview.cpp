@@ -317,13 +317,6 @@ void AtmClientView::on_buttonLogout_clicked()
     emit sendBye();
 }
 
-void AtmClientView::on_buttonDisconnect_clicked()
-{
-    qDebug()<<"<<  View  :: on_buttonDisconnect_clicked\t>>";
-    ui->stackWindow->setCurrentIndex(0);
-    emit disconnect();
-}
-
 void AtmClientView::on_buttonTest_clicked()
 {
     qDebug()<<"<<  View  :: on_buttonTest_clicked\t>>";
