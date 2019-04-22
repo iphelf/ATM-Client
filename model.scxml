@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" name="model" qt:editorversion="4.6.2" xmlns:qt="http://www.qt.io/2015/02/scxml-ext">
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="model" qt:editorversion="4.6.2">
     <state id="ATM Client">
         <qt:editorinfo geometry="-226.27;-36.94;-97.21;46.70;1646.41;888.07" scenegeometry="-226.27;-36.94;-323.48;9.76;1646.41;888.07"/>
         <state id="Configuration" initial="等待输入Host/Port/点击">
             <qt:editorinfo geometry="166.99;308.90;-92.19;-132.57;524.45;345.65" scenegeometry="-59.28;271.96;-151.47;139.39;524.45;345.65"/>
             <state id="等待输入Host/Port/点击">
-                <qt:editorinfo geometry="-26.60;129.17;-45.21;-50;240.62;100" scenegeometry="-173.73;379.17;-218.94;329.17;240.62;100"/>
+                <qt:editorinfo geometry="-26.60;129.17;-45.21;-50;240.62;100" scenegeometry="-85.88;401.13;-131.09;351.13;240.62;100"/>
                 <transition type="external" event="点击Test" target="检测Host:Port能否建立连接">
                     <qt:editorinfo movePoint="55.93;24.11"/>
                 </transition>
                 <transition type="external" event="点击Configure" target="Login">
                     <qt:editorinfo movePoint="43.07;-9.97" endTargetFactors="21.85;3.16" startTargetFactors="6.94;87.78"/>
                 </transition>
+                <transition type="external" event="点击Exit" target="Final_3">
+                    <qt:editorinfo movePoint="57.95;193.18" startTargetFactors="8.67;17.21"/>
+                </transition>
             </state>
             <state id="输出Invaid">
-                <qt:editorinfo geometry="350.76;-21.83;-61.50;-50;123;100" scenegeometry="579;192;517.50;142;123;100"/>
+                <qt:editorinfo geometry="350.76;-21.83;-61.50;-50;123;100" scenegeometry="291.48;250.13;229.98;200.13;123;100"/>
                 <transition type="external" target="等待输入Host/Port/点击">
                     <qt:editorinfo endTargetFactors="93.82;12.93"/>
                 </transition>
             </state>
             <state id="输出Valid">
-                <qt:editorinfo geometry="345.76;129.17;-60;-50;120;100" scenegeometry="574;343;514;293;120;100"/>
+                <qt:editorinfo geometry="345.76;129.17;-60;-50;120;100" scenegeometry="286.48;401.13;226.48;351.13;120;100"/>
                 <transition type="external" target="等待输入Host/Port/点击">
                     <qt:editorinfo endTargetFactors="78.99;60.50" startTargetFactors="11.76;58.62"/>
                 </transition>
             </state>
             <state id="检测Host:Port能否建立连接">
-                <qt:editorinfo geometry="-17.59;-21.83;-45.32;-50;243;100" scenegeometry="210.65;192;165.33;142;243;100"/>
+                <qt:editorinfo geometry="-17.59;-21.83;-45.32;-50;243;100" scenegeometry="-76.87;250.13;-122.19;200.13;243;100"/>
                 <transition type="external" event="能" target="输出Valid">
                     <qt:editorinfo movePoint="-38;-19" startTargetFactors="95.84;86.21"/>
                 </transition>
@@ -38,40 +41,43 @@
         <state id="Login">
             <qt:editorinfo geometry="7.15;636.26;-84.36;-87.79;889.28;357.64" scenegeometry="-219.12;599.32;-303.48;511.53;889.28;357.64"/>
             <state id="等待输入Userid/Password/点击">
-                <qt:editorinfo geometry="-21.36;32;-43;-50;267;100" scenegeometry="-233.48;635.32;-276.48;585.32;267;100"/>
-                <transition type="external" event="点击Configuration" target="Configuration">
-                    <qt:editorinfo movePoint="-41.69;48.31" endTargetFactors="19.47;97.69" startTargetFactors="86;15.65"/>
+                <qt:editorinfo geometry="-21.36;32;-43;-50;267;100" scenegeometry="-240.48;631.32;-283.48;581.32;267;100"/>
+                <transition type="external" event="点击Config" target="Configuration">
+                    <qt:editorinfo movePoint="-11.37;45.67" endTargetFactors="19.47;97.69" startTargetFactors="86;15.65"/>
                 </transition>
                 <transition type="external" event="点击Login" target="尝试建立连接"/>
+                <transition type="external" event="点击Exit" target="Final_3">
+                    <qt:editorinfo movePoint="11.86;307.14"/>
+                </transition>
             </state>
             <state id="输出连接错误">
-                <qt:editorinfo geometry="86.27;199.06;-60;-50;120;100" scenegeometry="-125.85;802.38;-185.85;752.38;120;100"/>
+                <qt:editorinfo geometry="86.27;199.06;-60;-50;120;100" scenegeometry="-132.85;798.38;-192.85;748.38;120;100"/>
                 <transition type="external" target="等待输入Userid/Password/点击">
                     <qt:editorinfo endTargetFactors="54.94;85.93"/>
                 </transition>
             </state>
             <state id="发送HELO">
-                <qt:editorinfo geometry="515.03;23.78;-60;-50;120;100" scenegeometry="717.39;558.78;657.39;508.78;120;100"/>
+                <qt:editorinfo geometry="515.03;23.78;-60;-50;120;100" scenegeometry="295.91;623.10;235.91;573.10;120;100"/>
                 <transition type="external" event="收到ERR" target="输出账号错误">
                     <qt:editorinfo movePoint="63;-26"/>
                 </transition>
                 <transition type="external" event="收到OK" target="发送PASSWD"/>
             </state>
             <state id="尝试建立连接">
-                <qt:editorinfo geometry="331.53;28;-60;-50;120;100" scenegeometry="533.89;563;473.89;513;120;100"/>
+                <qt:editorinfo geometry="331.53;28;-60;-50;120;100" scenegeometry="112.41;627.32;52.41;577.32;120;100"/>
                 <transition type="external" event="失败" target="输出连接错误">
                     <qt:editorinfo movePoint="73;-33"/>
                 </transition>
                 <transition type="external" event="成功" target="发送HELO"/>
             </state>
             <state id="输出账号错误">
-                <qt:editorinfo geometry="334.46;199.85;-60;-50;120;100" scenegeometry="122.34;803.17;62.34;753.17;120;100"/>
+                <qt:editorinfo geometry="334.46;199.85;-60;-50;120;100" scenegeometry="115.34;799.17;55.34;749.17;120;100"/>
                 <transition type="external" target="等待输入Userid/Password/点击">
                     <qt:editorinfo movePoint="63;-11" endTargetFactors="79.54;81.44"/>
                 </transition>
             </state>
             <state id="发送PASSWD">
-                <qt:editorinfo geometry="696.51;24.78;-60;-50;120;100" scenegeometry="898.87;559.78;838.87;509.78;120;100"/>
+                <qt:editorinfo geometry="696.51;24.78;-60;-50;120;100" scenegeometry="477.39;624.10;417.39;574.10;120;100"/>
                 <transition type="external" event="收到ERR" target="输出密码错误">
                     <qt:editorinfo movePoint="48;-21"/>
                 </transition>
@@ -80,7 +86,7 @@
                 </transition>
             </state>
             <state id="输出密码错误">
-                <qt:editorinfo geometry="558.03;193.05;-60;-50;120;100" scenegeometry="345.91;796.37;285.91;746.37;120;100"/>
+                <qt:editorinfo geometry="558.03;193.05;-60;-50;120;100" scenegeometry="338.91;792.37;278.91;742.37;120;100"/>
                 <transition type="external" target="等待输入Userid/Password/点击">
                     <qt:editorinfo endTargetFactors="92.28;80.33"/>
                 </transition>
@@ -89,7 +95,7 @@
         <state id="Operation">
             <qt:editorinfo geometry="954.85;633.26;-119.87;-482.01;691.96;753.44" scenegeometry="728.58;596.32;608.71;114.31;691.96;753.44"/>
             <state id="等待输入点击">
-                <qt:editorinfo geometry="167.82;-143.44;-32.12;-50;160.36;100" scenegeometry="896.40;453.88;864.28;403.88;160.36;100"/>
+                <qt:editorinfo geometry="167.82;-143.44;-32.12;-50;160.36;100" scenegeometry="896.40;452.88;864.28;402.88;160.36;100"/>
                 <transition type="external" event="点击Query Balance" target="发送BALANCE">
                     <qt:editorinfo movePoint="32.42;47.38"/>
                 </transition>
@@ -104,7 +110,7 @@
                 </transition>
             </state>
             <state id="发送BALANCE">
-                <qt:editorinfo geometry="204.86;-346.80;-60;-50;120;100" scenegeometry="933.44;250.52;873.44;200.52;120;100"/>
+                <qt:editorinfo geometry="204.86;-346.80;-60;-50;120;100" scenegeometry="933.44;249.52;873.44;199.52;120;100"/>
                 <transition type="external" event="收到ERR" target="输出查询失败">
                     <qt:editorinfo movePoint="31.42;-16.39"/>
                 </transition>
@@ -113,17 +119,17 @@
                 </transition>
             </state>
             <state id="输出查询失败">
-                <qt:editorinfo geometry="-4.34;-341.60;-60;-50;120;100" scenegeometry="724.24;255.72;664.24;205.72;120;100"/>
+                <qt:editorinfo geometry="-4.34;-341.60;-60;-50;120;100" scenegeometry="724.24;254.72;664.24;204.72;120;100"/>
                 <transition type="external" target="等待输入点击">
                     <qt:editorinfo endTargetFactors="73.33;81.58"/>
                 </transition>
             </state>
             <state id="输出查询结果">
-                <qt:editorinfo geometry="488.67;-344.24;-60;-50;120;100" scenegeometry="1217.25;253.08;1157.25;203.08;120;100"/>
+                <qt:editorinfo geometry="488.67;-344.24;-60;-50;120;100" scenegeometry="1217.25;252.08;1157.25;202.08;120;100"/>
                 <transition type="external" target="等待输入点击"/>
             </state>
             <state id="输入金额">
-                <qt:editorinfo geometry="228.04;41.11;-84.25;-50;120;100" scenegeometry="956.62;638.43;872.37;588.43;120;100"/>
+                <qt:editorinfo geometry="228.04;41.11;-84.25;-50;120;100" scenegeometry="956.62;637.43;872.37;587.43;120;100"/>
                 <transition type="external" event="成功" target="发送WITHDRAWL">
                     <qt:editorinfo movePoint="13.50;-6.08"/>
                 </transition>
@@ -132,7 +138,7 @@
                 </transition>
             </state>
             <state id="发送WITHDRAWL">
-                <qt:editorinfo geometry="256.98;187.02;-134.13;-50;147;100" scenegeometry="985.56;784.34;851.43;734.34;147;100"/>
+                <qt:editorinfo geometry="256.98;187.02;-134.13;-50;147;100" scenegeometry="985.56;783.34;851.43;733.34;147;100"/>
                 <transition type="external" event="收到ERR" target="输出取钱失败">
                     <qt:editorinfo movePoint="12.29;23.45"/>
                 </transition>
@@ -141,35 +147,32 @@
                 </transition>
             </state>
             <state id="输出取钱失败">
-                <qt:editorinfo geometry="-1.88;41.36;-69.50;-50;139;100" scenegeometry="726.70;638.68;657.20;588.68;139;100"/>
+                <qt:editorinfo geometry="-1.88;41.36;-69.50;-50;139;100" scenegeometry="726.70;637.68;657.20;587.68;139;100"/>
                 <transition type="external" target="等待输入点击">
                     <qt:editorinfo endTargetFactors="7.14;90.07" startTargetFactors="86.02;8.97"/>
                 </transition>
             </state>
             <state id="输出取钱结果">
-                <qt:editorinfo geometry="482.59;32.14;-69.50;-50;139;100" scenegeometry="1211.17;629.46;1141.67;579.46;139;100"/>
+                <qt:editorinfo geometry="482.59;32.14;-69.50;-50;139;100" scenegeometry="1211.17;628.46;1141.67;578.46;139;100"/>
                 <transition type="external" target="等待输入点击">
                     <qt:editorinfo endTargetFactors="92.30;88.06"/>
                 </transition>
             </state>
             <state id="清空日志">
-                <qt:editorinfo geometry="490.70;-143.44;-60;-50;120;100" scenegeometry="1219.28;453.88;1159.28;403.88;120;100"/>
+                <qt:editorinfo geometry="490.70;-143.44;-60;-50;120;100" scenegeometry="1219.28;452.88;1159.28;402.88;120;100"/>
                 <transition type="external" target="等待输入点击">
                     <qt:editorinfo movePoint="20.99;30.97" endTargetFactors="91.98;38.87" startTargetFactors="10.98;42.35"/>
                 </transition>
             </state>
             <state id="发送BYE">
-                <qt:editorinfo geometry="-13.58;-136.32;-60;-50;120;100" scenegeometry="715;461;655;411;120;100"/>
+                <qt:editorinfo geometry="-13.58;-136.32;-60;-50;120;100" scenegeometry="715;460;655;410;120;100"/>
                 <transition type="external" event="收到BYE" target="Login">
                     <qt:editorinfo movePoint="28.05;8.70" endTargetFactors="95.52;4.93"/>
                 </transition>
             </state>
         </state>
-        <transition type="external" event="关闭窗口" target="Final_3">
-            <qt:editorinfo movePoint="56.63;20.50"/>
-        </transition>
     </state>
     <final id="Final_3">
-        <qt:editorinfo geometry="499.73;-66.42;-20;-20;40;40" scenegeometry="499.73;-66.42;479.73;-86.42;40;40"/>
+        <qt:editorinfo geometry="-259.54;-58.51;-20;-20;40;40" scenegeometry="-259.54;-58.51;-279.54;-78.51;40;40"/>
     </final>
 </scxml>
